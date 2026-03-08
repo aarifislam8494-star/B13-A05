@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Issue Tracker</title>
+    <!-- Add-- css -->
+    <link rel="stylesheet" href="style.css">
+    <!-- DaisyUI & CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 </head>
-<body>
- <h1>Hello World</h1>
+
+<body class="font-gheist">
+    <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mt-[79px]  mx-auto">
+        <div class="items-center flex flex-col mt-[20px] space-y-2">
+            <img src="assets/github-logo.png" alt="github-logo">
+            <h3 class="font-semibold text-xl">GitHub Issues Tracker</h3>
+            <p class="text-[#647488]">Sign in to manage your issues</p>
+        </div>
+        <div class="card-body">
+            <fieldset class="fieldset">
+                <label class="label text-[16px]">Username</label>
+                <input id="inputUser" type="text" class="input" placeholder="Enter Username" />
+                <p class=" text-[#4A00Ff]">Default: admin</p>
+                <label class="label text-[16px]">Password</label>
+                <input id="inputPass" type="password" class="input" placeholder="Enter Password" />
+                <p class="text-[#4A00Ff]">Default: admin123</p>
+                <button class="btn btn-primary mt-4" id="signBtn" disabled>Sign In</button>
+            </fieldset>
+            <div class="text-center ">
+                <p class="mb-[20px] font-semibold">OR</p>
+                <p>Demo Credentials:</p>
+                <div class="bg-gray-100 rounded-xl mt-[10px] space-y-3 py-2">
+                    <p>Username:admin</p>
+                    <p>Password:admin123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
+
 </html>

@@ -12,7 +12,7 @@
 
 <body class="font-gheist">
      <!-- navbar -->
-    <div class="navbar flex justify-between mx-auto bg-base-100 shadow-sm">
+     <div class="navbar sticky top-0 flex justify-between mx-auto bg-base-100 shadow-sm"></div>
         <div class="sm:flex items-center sm:gap-[15px]">
             <img class="w-[36px]" src="assets/github-logo.png" alt="">
             <p class="font-semibold text-[17px]">GitHub Issues Tracker</p>
@@ -28,9 +28,9 @@
 
     <section
         class="mt-[60px] bg-white shadow-[0_4px_10px_rgba(0,0,0,0.1)] p-[24px] max-w-[1300px] mx-auto rounded flex gap-[8px]">
-        <button id="allbtn" class="w-[120px] btn btn-primary">All</button>
-        <button id="openBtn" class="btn w-[120px] btn-outline">Open</button>
-         <button id="closeBtn" class="btn w-[120px] btn-outline">Closed</button>
+        <button id="allbtn" class="w-[120px] btn button btn-primary">All</button>
+        <button id="openBtn" class="btn w-[120px] button btn-outline">Open</button>
+        <button id="closeBtn" class="btn w-[120px] button btn-outline">Closed</button>
     </section>
 
     <section
@@ -60,8 +60,38 @@
         <span class="flex items-center loading loading-dots loading-xl"></span>
     </div>
 
+     <dialog id="card_modal" class="modal">
+        <div class="modal-box ">
+            <h1 class="font-semibold text-[24px]" id="modal_title">Fix broken image uploads</h1>
+            <div class="flex gap-[28px] mt-[8px] text-center items-center">
+                <p class="rounded-3xl bg-green-600 text-[14px] text-white px-[10px] py-[5px]" id="modal_status">Opened</p>
+                <p id="modal_author">Opened by Fahim Ahmed</p>
+                <p id="update_date">22/02/2026</p>
+            </div>
+            <div class="flex gap-[4px] mt-[24px]">
+                <p id="modal_bug" class="text-[red] bg-[#feecec] rounded-3xl  px-[10px] py-[5px] ">BUG</p>
+                <p id="modal_help" class="text-[#91918e] bg-[#fff6db] rounded-3xl  px-[10px] py-[5px]">HELP WANTED</p>
+            </div>
+            <p id="modal_description" class="text-[#64748B] mt-[24px]">The navigation menu doesn't collapse properly on mobile devices. Need to fix the response behavior.</p>
+            <main class="flex gap-[100px] bg-gray-100 rounded-sm p-[16px] mt-[24px]">
+                <div>
+                    <p  class="text-[#64748B]">Assignee:</p>
+                    <p id="modal_assignee" class="font-semibold">Fahim Ahmed</p>
+                </div>
+                <div>
+                    <p class="text-[#64748B]">Priority:</p>
+                    <p id="modal_priority" class="bg-red-600 text-[12px] text-center rounded-3xl text-white">HIGH</p>
+                </div>
+            </main>
+            <div class="modal-action">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn" onclick="cardDetailsModal.close()">Close</button>
+            </div>
+        </div>
+    </dialog>
+    <script src="issues.js"></script>
     
 </body>
 
-<script src="issues.js"></script>
+
 </html>

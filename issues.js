@@ -36,8 +36,20 @@ const getBorder = (borderColor) => {
 const displayIssues = (issues) => {
 
     // console.log(issues);
+    if(issues.length === 0){
+        cardContainer.innerHTML = `
+        <div class="text-center items-center flex flex-col">
+            <img src="assets/istockphoto-827247322-612x612.jpg" class="w-[250px]" alt="">
+            <h4>No Data Found!!</h4>
+        </div>
+        ` 
+        const totalCount = document.getElementById('totalCount')
+    totalCount.textContent = issues.length;
+        return
+    }
      cardContainer.innerHTML = ""
-    document.getElementById('totalCount').textContent = issues.length;
+     const totalCount = document.getElementById('totalCount')
+    totalCount.textContent = issues.length;
     issues.forEach((issue) => {
 
         // console.log(issue);
@@ -48,8 +60,8 @@ const displayIssues = (issues) => {
             <h3 class="font-semibold text-xl mt-[25px]">${issue.title}</h3>
             <p class="text-[#64748B] line-clamp-2">${issue.description}</p>
             <div class="mt-[12px] flex gap-[12px] overflow-hidden">
-                <span class="rounded-lg  px-[10px] h-fit py-[8px] text-[red] bg-[#feecec]">${issue.labels[0]}</span>
-                ${issue.labels[1] ? `<span class="px-[10px] h-fit rounded-lg py-[8px] text-[#91918e] bg-[#fff6db]">${issue.labels[1]}</span>` : ''}
+                <span style="font-size:12px" class="rounded-lg   px-[10px] h-fit py-[8px] text-[red] bg-[#feecec]">${issue.labels[0]}</span>
+                ${issue.labels[1] ? `<span style="font-size:12px" class="px-[10px] h-fit rounded-lg py-[8px] text-[#91918e] bg-[#fff6db]">${issue.labels[1]}</span>` : ''}
                 </div>
             <div style ="border-top: 1px solid #64748B">
                 <p class="text-[#64748B] text-[17px] mt-[10px]">#Author by ${issue.author}</p>
@@ -86,6 +98,8 @@ function openModal(id) {
         document.getElementById('modal_author').innerText = issuE.author;
         document.getElementById('update_date').innerText = new Date(issuE.updatedAt).toLocaleDateString('en-GB');
         document.getElementById('modal_description').innerText = issuE.description;
+         document.getElementById('modal_bug').innerText = issuE.labels[0];
+        document.getElementById('modal_help').innerText = issuE.labels[1];
         const assigneeEl = document.getElementById('modal_assignee');
         if (issuE.assignee) {
             assigneeEl.innerText = issuE.assignee;
@@ -102,4 +116,21 @@ function openModal(id) {
     cardDetailsModal.showModal();
     // console.log('Open Modal',id);
 }
+
 loadIssues();
+
+document.getElementById('btn-search').addEventListener('click',()=>{
+    const inputSearch = document.getElementById('input-search');
+    const searchValue = inputSearch.value.trim().toLowerCase();
+    console.log(searchValue);
+    showSpinner()
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues`)
+    .then((res)=>res.json())
+    .then((data)=>{
+        const allData = data.data;
+        console.log(allData);
+        const filterData = allData.filter((data)=>data.title.toLowerCase().includes(searchValue))
+        displayIssues(filterData);
+        hideSpinner();
+    });
+})

@@ -18,8 +18,9 @@
             <p class="font-semibold text-[17px]">GitHub Issues Tracker</p>
         </div>
         <div class="flex gap-5">
-            <input type="search" placeholder="Search Issues.." class="p-[10px] border-gray-300 rounded-sm w-[300px]">
-            <button class="btn btn-primary h-[44px] btn-new">+ New Issues</button>
+            <input id="input-search" type="search" placeholder="Search Issues.."
+                class="p-[10px] border-gray-300 rounded-sm w-[300px]">
+            <button id="btn-search" class="btn btn-primary h-[44px] btn-new">Search Issues</button>
         </div>
 
     </div>
@@ -52,7 +53,7 @@
 
     <!--data from api -->
      <section id="cardContainer"
-        class="mt-[25px] mx-auto max-w-[1300px] grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-[25px]  p-[27px] bg-white shadow-[0_4px_10px_rgba(0,0,0,0.1)]">
+        class="mt-[25px] mx-auto items-start max-w-[1300px] grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-[25px]  p-[27px] bg-white shadow-[0_4px_10px_rgba(0,0,0,0.1)]"></section>
      </section>
 
 
@@ -64,7 +65,8 @@
         <div class="modal-box ">
             <h1 class="font-semibold text-[24px]" id="modal_title">Fix broken image uploads</h1>
             <div class="flex gap-[28px] mt-[8px] text-center items-center">
-                <p class="rounded-3xl bg-green-600 text-[14px] text-white px-[10px] py-[5px]" id="modal_status">Opened</p>
+                <p class="rounded-3xl bg-green-600 text-[14px] text-white px-[10px] py-[5px]" id="modal_status">Opened
+                </p>
                 <p id="modal_author">Opened by Fahim Ahmed</p>
                 <p id="update_date">22/02/2026</p>
             </div>
@@ -72,10 +74,11 @@
                 <p id="modal_bug" class="text-[red] bg-[#feecec] rounded-3xl  px-[10px] py-[5px] ">BUG</p>
                 <p id="modal_help" class="text-[#91918e] bg-[#fff6db] rounded-3xl  px-[10px] py-[5px]">HELP WANTED</p>
             </div>
-            <p id="modal_description" class="text-[#64748B] mt-[24px]">The navigation menu doesn't collapse properly on mobile devices. Need to fix the response behavior.</p>
+            <p id="modal_description" class="text-[#64748B] mt-[24px]">The navigation menu doesn't collapse properly on
+                mobile devices. Need to fix the response behavior.</p>
             <main class="flex gap-[100px] bg-gray-100 rounded-sm p-[16px] mt-[24px]">
                 <div>
-                    <p  class="text-[#64748B]">Assignee:</p>
+                     <p class="text-[#64748B]">Assignee:</p>
                     <p id="modal_assignee" class="font-semibold">Fahim Ahmed</p>
                 </div>
                 <div>
@@ -85,12 +88,13 @@
             </main>
             <div class="modal-action">
                     <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn" onclick="cardDetailsModal.close()">Close</button>
+                <button class="btn" onclick="cardDetailsModal.close()">Close</button>
             </div>
         </div>
     </dialog>
-    <script src="issues.js"></script>
     
+    <script src="issues.js"></script>
+
 </body>
 
 

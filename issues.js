@@ -4,12 +4,19 @@ const openBtn = document.getElementById("openBtn");
 const closeBtn = document.getElementById("closeBtn");
 const loadingSpinner = document.getElementById("loadingSpinner");
 
-const loadIssues = () => {
-    const url = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
-    fetch(url)
-        .then((res) => res.json())
-        .then((data) => displayIssues(data.data));
-}
+const loadIssues = (status = 'all') => {
+    showSpinner();
+    fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+        .then(res => res.json())
+        .then(data => {
+            hideSpinner(); 
+            let issues = data.data;
+            if (status !== 'all') {
+                issues = data.data.filter(issue => issue.status === status);
+            }
+            displayIssues(issues);
+        });
+};
 
 // set priority color from api
 const getPriorityColor = (priorityColor) => {
@@ -19,23 +26,31 @@ const getPriorityColor = (priorityColor) => {
     return '';
 };
 
+const getBorder = (borderColor) => {
+    if (borderColor == 'open') return 'border-top:3px solid green'
+    if (borderColor == 'closed') return 'border-top:3px solid purple';
+    return ''
+};
+
 const displayIssues = (issues) => {
- 
+
     // console.log(issues);
+     cardContainer.innerHTML = ""
+    document.getElementById('totalCount').textContent = issues.length;
     issues.forEach((issue) => {
 
         // console.log(issue);
         const problem = document.createElement('div');
         problem.innerHTML = `
-        <div class="p-[20px] max-w-[350px] h-[100%] space-y-6 bg-white shadow-[0_4px_10px_rgba(0,0,0,0.1)]">
+         <div style="${getBorder(issue.status)}" class="p-[20px] max-w-[350px] h-[100%] space-y-6 bg-white shadow-[0_4px_10px_rgba(0,0,0,0.1)]">
             <span style="${getPriorityColor(issue.priority)}"class="py-[15px] px-[25px] rounded-lg font-semibold">${issue.priority}</span>
             <h3 class="font-semibold text-xl mt-[25px]">${issue.title}</h3>
             <p class="text-[#64748B]">${issue.description}</p>
             <div class="mt-[12px] flex gap-[12px] overflow-hidden">
                 <span class="rounded-lg  px-[10px] py-[8px] text-[red] bg-[#feecec]">${issue.labels[0]}</span>
                 ${issue.labels[1] ? `<span class="px-[10px] rounded-lg py-[8px] text-[#91918e] bg-[#fff6db]">${issue.labels[1]}</span>` : ''}
-            <div>
-                <p class="text-[#64748B] text-[17px]">#Author by ${issue.author}</p>
+            <div style ="border-top: 1px solid #64748B">
+                <p class="text-[#64748B] text-[17px] mt-[10px]">#Author by ${issue.author}</p>
                 ${issue.assignee ? `<span class="text-[#64748B] text-[17px]">#Assignee by ${issue.assignee}</span>` : ''}
                 <p class="text-[#64748B] text-[17px]">#CreateAt ${issue.createdAt}</p>
                 <p class="text-[#64748B] text-[17px]">#UpdateAt ${issue.updatedAt}</p>
@@ -45,11 +60,20 @@ const displayIssues = (issues) => {
         cardContainer.appendChild(problem);
     })
     };
-function showSpinner(){
+function showSpinner() {
     loadingSpinner.classList.remove('hidden');
-    cardContainer.innerHTML ='';
+     // cardContainer.innerHTML ='';
 }
-function hideSpinner(){
+function hideSpinner() {
     loadingSpinner.classList.add('hidden')
 }
+
+document.querySelectorAll('.btn:not(.btn-new)').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn:not(.btn-new)').forEach(b => b.classList.replace('btn-primary', 'btn-outline'));
+        btn.classList.replace('btn-outline', 'btn-primary');
+        const status = btn.textContent.trim().toLowerCase();
+        loadIssues(status);
+    });
+});
 loadIssues();
